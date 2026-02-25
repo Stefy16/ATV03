@@ -1,0 +1,251 @@
+{
+  "description": "Exemplo de estrutura de dados utilizados na aplicação SLA Contatos",
+  "user": {
+    "example": {
+      "id": "550e8400-e29b-41d4-a716-446655440000",
+      "email": "joao@example.com",
+      "name": "João Silva"
+    },
+    "fields": {
+      "id": "string - UUID ou ID único",
+      "email": "string - Email do usuário",
+      "name": "string - Nome do usuário"
+    }
+  },
+  "contact": {
+    "example": {
+      "id": 1,
+      "name": "João Silva",
+      "email": "joao@example.com",
+      "phone": "11999999999",
+      "address": "Rua A, 123 - São Paulo, SP"
+    },
+    "fields": {
+      "id": "number - ID único (auto incrementado)",
+      "name": "string - Nome completo (obrigatório)",
+      "email": "string - Email do contato (obrigatório, deve ser válido)",
+      "phone": "string - Telefone (obrigatório, 10-11 dígitos)",
+      "address": "string - Endereço (opcional)"
+    }
+  },
+  "contacts_array": [
+    {
+      "id": 1,
+      "name": "João Silva",
+      "email": "joao@example.com",
+      "phone": "11999999999",
+      "address": "Rua A, 123 - São Paulo, SP"
+    },
+    {
+      "id": 2,
+      "name": "Maria Santos",
+      "email": "maria@example.com",
+      "phone": "11988888888",
+      "address": "Avenida B, 456 - Rio de Janeiro, RJ"
+    },
+    {
+      "id": 3,
+      "name": "Pedro Oliveira",
+      "email": "pedro@example.com",
+      "phone": "11977777777",
+      "address": "Rua C, 789 - Belo Horizonte, MG"
+    }
+  ],
+  "api_requests_example": {
+    "login": {
+      "method": "POST",
+      "endpoint": "/auth/login",
+      "request": {
+        "email": "joao@example.com",
+        "password": "senha123"
+      },
+      "response": {
+        "success": true,
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+        "user": {
+          "id": "550e8400-e29b-41d4-a716-446655440000",
+          "email": "joao@example.com",
+          "name": "João Silva"
+        }
+      }
+    },
+    "register": {
+      "method": "POST",
+      "endpoint": "/auth/register",
+      "request": {
+        "name": "João Silva",
+        "email": "joao@example.com",
+        "password": "senha123"
+      },
+      "response": {
+        "success": true,
+        "message": "Usuário cadastrado com sucesso",
+        "user": {
+          "id": "550e8400-e29b-41d4-a716-446655440000",
+          "email": "joao@example.com",
+          "name": "João Silva"
+        }
+      }
+    },
+    "get_all_contacts": {
+      "method": "GET",
+      "endpoint": "/contacts",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      },
+      "response": {
+        "success": true,
+        "data": [
+          {
+            "id": 1,
+            "name": "João Silva",
+            "email": "joao@example.com",
+            "phone": "11999999999",
+            "address": "Rua A, 123 - São Paulo, SP"
+          },
+          {
+            "id": 2,
+            "name": "Maria Santos",
+            "email": "maria@example.com",
+            "phone": "11988888888",
+            "address": "Avenida B, 456 - Rio de Janeiro, RJ"
+          }
+        ]
+      }
+    },
+    "get_contact_by_id": {
+      "method": "GET",
+      "endpoint": "/contacts/1",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      },
+      "response": {
+        "success": true,
+        "data": {
+          "id": 1,
+          "name": "João Silva",
+          "email": "joao@example.com",
+          "phone": "11999999999",
+          "address": "Rua A, 123 - São Paulo, SP"
+        }
+      }
+    },
+    "create_contact": {
+      "method": "POST",
+      "endpoint": "/contacts",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+        "Content-Type": "application/json"
+      },
+      "request": {
+        "name": "Ana Costa",
+        "email": "ana@example.com",
+        "phone": "21987654321",
+        "address": "Avenida C, 456 - Curitiba, PR"
+      },
+      "response": {
+        "success": true,
+        "message": "Contato criado com sucesso",
+        "data": {
+          "id": 4,
+          "name": "Ana Costa",
+          "email": "ana@example.com",
+          "phone": "21987654321",
+          "address": "Avenida C, 456 - Curitiba, PR"
+        }
+      }
+    },
+    "update_contact": {
+      "method": "PUT",
+      "endpoint": "/contacts/1",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+        "Content-Type": "application/json"
+      },
+      "request": {
+        "name": "João Silva Atualizado",
+        "email": "joao.novo@example.com",
+        "phone": "11998888888",
+        "address": "Rua A, 999 - São Paulo, SP"
+      },
+      "response": {
+        "success": true,
+        "message": "Contato atualizado com sucesso",
+        "data": {
+          "id": 1,
+          "name": "João Silva Atualizado",
+          "email": "joao.novo@example.com",
+          "phone": "11998888888",
+          "address": "Rua A, 999 - São Paulo, SP"
+        }
+      }
+    },
+    "delete_contact": {
+      "method": "DELETE",
+      "endpoint": "/contacts/1",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      },
+      "response": {
+        "success": true,
+        "message": "Contato deletado com sucesso"
+      }
+    },
+    "search_contacts": {
+      "method": "GET",
+      "endpoint": "/contacts/search?q=João",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      },
+      "response": {
+        "success": true,
+        "data": [
+          {
+            "id": 1,
+            "name": "João Silva",
+            "email": "joao@example.com",
+            "phone": "11999999999",
+            "address": "Rua A, 123 - São Paulo, SP"
+          }
+        ]
+      }
+    }
+  },
+  "error_responses": {
+    "unauthorized": {
+      "status": 401,
+      "response": {
+        "success": false,
+        "message": "Não autorizado. Faça login novamente.",
+        "error": "UNAUTHORIZED"
+      }
+    },
+    "not_found": {
+      "status": 404,
+      "response": {
+        "success": false,
+        "message": "Contato não encontrado",
+        "error": "NOT_FOUND"
+      }
+    },
+    "validation_error": {
+      "status": 400,
+      "response": {
+        "success": false,
+        "message": "Erro de validação",
+        "errors": {
+          "email": "Email inválido",
+          "phone": "Telefone deve ter 10-11 dígitos"
+        }
+      }
+    },
+    "server_error": {
+      "status": 500,
+      "response": {
+        "success": false,
+        "message": "Erro interno do servidor",
+        "error": "INTERNAL_SERVER_ERROR"
+      }
+    }
+  }
+}
