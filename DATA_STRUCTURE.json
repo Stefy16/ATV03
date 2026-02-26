@@ -3,22 +3,22 @@
   "user": {
     "example": {
       "id": "550e8400-e29b-41d4-a716-446655440000",
-      "email": "joao@example.com",
-      "name": "João Silva"
+      "phone": "81 988553424",
+      "name": "Marcos Andrade"
     },
     "fields": {
       "id": "string - UUID ou ID único",
-      "email": "string - Email do usuário",
+      "phone": "string - Telefone do usuário",
       "name": "string - Nome do usuário"
     }
   },
   "contact": {
     "example": {
       "id": 1,
-      "name": "João Silva",
-      "email": "joao@example.com",
-      "phone": "11999999999",
-      "address": "Rua A, 123 - São Paulo, SP"
+      "name": "Marcos Andrade",
+      "email": "marcos@example.com",
+      "phone": "81 988553424",
+      "address": "Rua Exemplo, 123 - Recife, PE"
     },
     "fields": {
       "id": "number - ID único (auto incrementado)",
@@ -31,23 +31,20 @@
   "contacts_array": [
     {
       "id": 1,
-      "name": "João Silva",
-      "email": "joao@example.com",
-      "phone": "11999999999",
-      "address": "Rua A, 123 - São Paulo, SP"
+      "name": "Marcos Andrade",
+      "phone": "81 988553424",
+      "address": "Rua Exemplo, 123 - Recife, PE"
     },
     {
       "id": 2,
-      "name": "Maria Santos",
-      "email": "maria@example.com",
-      "phone": "11988888888",
+      "name": "Patrícia Tavares",
+      "phone": "81 998765332",
       "address": "Avenida B, 456 - Rio de Janeiro, RJ"
     },
     {
       "id": 3,
-      "name": "Pedro Oliveira",
-      "email": "pedro@example.com",
-      "phone": "11977777777",
+      "name": "Rodrigo Antunes",
+      "phone": "81 987765525",
       "address": "Rua C, 789 - Belo Horizonte, MG"
     }
   ],

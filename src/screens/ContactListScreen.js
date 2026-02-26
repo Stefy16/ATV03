@@ -8,6 +8,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { ContactService } from '../services/ContactService';
 import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
@@ -18,7 +19,6 @@ export default function ContactListScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const { logout } = useContext(AuthContext);
 
-  // Carregar contatos ao focar na tela
   useFocusEffect(
     useCallback(() => {
       loadContacts();
@@ -38,39 +38,26 @@ export default function ContactListScreen({ navigation }) {
     setRefreshing(false);
   };
 
-  const handleDelete = (id, name) => {
-    ContactService.deleteContact(id);
-    loadContacts();
-  };
-
-  const handleLogout = () => {
-    logout();
-  };
-
   const renderContact = ({ item }) => (
-    <View style={styles.contactCard}>
-      <View style={styles.contactInfo}>
-        <Text style={styles.contactName}>{item.name}</Text>
-        <Text style={styles.contactEmail}>{item.email}</Text>
-        <Text style={styles.contactPhone}>{item.phone}</Text>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('EditContact', { contact: item })
+      }
+    >
+      <View style={styles.contactCard}>
+        <View style={styles.avatar}>
+          <MaterialCommunityIcons
+            name="account-circle"
+            size={60}
+            color="#078dfc"
+          />
+        </View>
+        <View style={styles.contactInfo}>
+          <Text style={styles.contactName}>{item.name}</Text>
+          <Text style={styles.contactPhone}>{item.phone}</Text>
+        </View>
       </View>
-      <View style={styles.contactActions}>
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() =>
-            navigation.navigate('EditContact', { contactId: item.id })
-          }
-        >
-          <Text style={styles.editButtonText}>Editar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.deleteButton}
-          onPress={() => handleDelete(item.id, item.name)}
-        >
-          <Text style={styles.deleteButtonText}>Excluir</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -79,10 +66,10 @@ export default function ContactListScreen({ navigation }) {
         <View style={styles.headerTop}>
           <Text style={styles.title}>Lista de Contatos</Text>
           <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={handleLogout}
+            style={styles.addButton}
+            onPress={() => navigation.navigate('CreateContact')}
           >
-            <Text style={styles.logoutButtonText}>Sair</Text>
+            <Text style={styles.addButtonText}>+</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -103,13 +90,6 @@ export default function ContactListScreen({ navigation }) {
           </View>
         }
       />
-
-      <TouchableOpacity
-        style={styles.fab}
-        onPress={() => navigation.navigate('CreateContact')}
-      >
-        <Text style={styles.fabText}>+</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -120,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3c4c4',
   },
   header: {
-    backgroundColor: '#fff',
+    backgroundColor: '#078dfc',
     paddingHorizontal: 16,
     paddingTop: 12,
     paddingBottom: 16,
@@ -132,39 +112,54 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
+    width: '100%',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
-  },
-  logoutButton: {
-    backgroundColor: '#FF3B30',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 6,
-  },
-  logoutButtonText: {
     color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
+    flex: 1,
+    textAlign: 'center',
+  },
+  addButton: {
+    backgroundColor: 'transparent',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 32,
+    fontWeight: '300',
   },
   listContent: {
     padding: 12,
   },
   contactCard: {
-    backgroundColor: '#fff',
+    backgroundColor: '#fafafa',
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,
-    shadowColor: '#000',
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#070707',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
   },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
   contactInfo: {
-    marginBottom: 12,
+    flex: 1,
   },
   contactName: {
     fontSize: 16,
@@ -172,62 +167,9 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 4,
   },
-  contactEmail: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 2,
-  },
   contactPhone: {
     fontSize: 14,
     color: '#666',
-  },
-  contactActions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: 8,
-  },
-  editButton: {
-    backgroundColor: '#007AFF',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-  },
-  editButtonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  deleteButton: {
-    backgroundColor: '#FF3B30',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-  },
-  deleteButtonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  fab: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#007AFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 5,
-  },
-  fabText: {
-    color: '#fff',
-    fontSize: 32,
-    fontWeight: '300',
   },
   emptyContainer: {
     flex: 1,

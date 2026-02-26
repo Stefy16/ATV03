@@ -1,25 +1,21 @@
-// Mock data - Em produção, isso viria de uma API
 let contactsData = [
   {
     id: 1,
-    name: 'João Silva',
-    email: 'joao@example.com',
-    phone: '11999999999',
-    address: 'Rua A, 123 - São Paulo, SP',
+    name: 'Marcos Andrade',
+    email: 'mand@gmail.com',
+    phone: '81 988553424',
   },
   {
     id: 2,
-    name: 'Maria Santos',
-    email: 'maria@example.com',
-    phone: '11988888888',
-    address: 'Avenida B, 456 - Rio de Janeiro, RJ',
+    name: 'Patrícia Tavares',
+    email: '',
+    phone: '81 998765332',
   },
   {
     id: 3,
-    name: 'Pedro Oliveira',
-    email: 'pedro@example.com',
-    phone: '11977777777',
-    address: 'Rua C, 789 - Belo Horizonte, MG',
+    name: 'Rodrigo Antunes',
+    email: '',
+    phone: '81 987765525',
   },
 ];
 
@@ -29,11 +25,6 @@ export const ContactService = {
   // Obter todos os contatos
   getAllContacts: () => {
     return [...contactsData];
-  },
-
-  // Obter contato por ID
-  getContactById: (id) => {
-    return contactsData.find((contact) => contact.id === id);
   },
 
   // Criar novo contato
@@ -47,19 +38,6 @@ export const ContactService = {
     return newContact;
   },
 
-  // Atualizar contato
-  updateContact: (id, contactData) => {
-    const index = contactsData.findIndex((contact) => contact.id === id);
-    if (index !== -1) {
-      contactsData[index] = {
-        ...contactsData[index],
-        ...contactData,
-      };
-      return contactsData[index];
-    }
-    return null;
-  },
-
   // Deletar contato
   deleteContact: (id) => {
     const index = contactsData.findIndex((contact) => contact.id === id);
@@ -69,13 +47,5 @@ export const ContactService = {
     }
     return false;
   },
-
-  // Buscar contatos por nome
-  searchContacts: (searchTerm) => {
-    return contactsData.filter(
-      (contact) =>
-        contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.email.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  },
 };
+
